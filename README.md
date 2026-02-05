@@ -206,12 +206,12 @@ copies of the Software.
 
 ## 👨‍💻 만든 사람
 
-- **개발**: Antigravity AI Assistant
+- **개발**: 아이디어큐브코딩
 - **디자인**: 미니멀 모노 테마
 
 ---
 
 <p align="center">
-  <strong>🎨 웹 디자인 도우미</strong><br>
+  <strong>🎨 아이디어큐브 웹 디자인 도우미</strong><br>
   주제를 입력하면 맞춤 디자인을 추천해드립니다!
 </p>
