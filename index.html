@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 웹 디자인 도우미 | Web Design Helper</title>
+    <meta name="description" content="웹사이트 디자인에 필요한 색상, 폰트, 스타일을 쉽게 찾아보세요. 학생들을 위한 디자인 가이드 앱입니다.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🎨</span>
+                    <h1>웹 디자인 도우미</h1>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="테마 변경">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="search-container">
+                    <h2 class="search-title">어떤 웹사이트를 만드나요?</h2>
+                    <p class="search-subtitle">주제를 입력하면 맞춤 디자인을 추천해 드려요</p>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="예: 카페, 병원, 쇼핑몰, 포트폴리오..." autocomplete="off">
+                        <button class="search-btn" id="searchBtn">
+                            <span>🔍</span>
+                            추천받기
+                        </button>
+                    </div>
+                    <div class="quick-tags">
+                        <span class="tag-label">인기 주제:</span>
+                        <button class="quick-tag" data-topic="카페">☕ 카페</button>
+                        <button class="quick-tag" data-topic="병원">🏥 병원</button>
+                        <button class="quick-tag" data-topic="쇼핑몰">🛍️ 쇼핑몰</button>
+                        <button class="quick-tag" data-topic="포트폴리오">💼 포트폴리오</button>
+                        <button class="quick-tag" data-topic="교육">📚 교육</button>
+                        <button class="quick-tag" data-topic="음식점">🍽️ 음식점</button>
+                        <button class="quick-tag" data-topic="뷰티">💄 뷰티</button>
+                        <button class="quick-tag" data-topic="IT테크">💻 IT/테크</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommendation Result (Hidden by default) -->
+            <section class="recommendation-section" id="recommendationSection" style="display: none;">
+                <div class="recommendation-header">
+                    <h2>📋 <span id="topicTitle">카페</span> 맞춤 디자인 시스템</h2>
+                    <button class="close-btn" id="closeRecommendation">✕</button>
+                </div>
+
+                <div class="recommendation-grid">
+                    <!-- Color Palette Card -->
+                    <div class="rec-card color-card">
+                        <h3>🎨 추천 색상 팔레트</h3>
+                        <div class="color-palette" id="colorPalette">
+                            <!-- Colors will be inserted here -->
+                        </div>
+                        <button class="copy-btn" id="copyColors">
+                            <span>📋</span> CSS 변수 복사
+                        </button>
+                    </div>
+
+                    <!-- Font Card -->
+                    <div class="rec-card font-card">
+                        <h3>✒️ 추천 폰트 조합</h3>
+                        <div class="font-preview" id="fontPreview">
+                            <!-- Font preview will be inserted here -->
+                        </div>
+                        <button class="copy-btn" id="copyFonts">
+                            <span>📋</span> Google Fonts 링크 복사
+                        </button>
+                    </div>
+
+                    <!-- Style Card -->
+                    <div class="rec-card style-card">
+                        <h3>🖼️ 추천 UI 스타일</h3>
+                        <div class="style-preview" id="stylePreview">
+                            <!-- Style preview will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Layout Card -->
+                    <div class="rec-card layout-card">
+                        <h3>📐 추천 레이아웃 패턴</h3>
+                        <div class="layout-preview" id="layoutPreview">
+                            <!-- Layout preview will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Tips Card -->
+                    <div class="rec-card tips-card full-width">
+                        <h3>💡 디자인 팁 & 피해야 할 것</h3>
+                        <div class="tips-content" id="tipsContent">
+                            <!-- Tips will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Auto Generated CSS Card -->
+                    <div class="rec-card css-card full-width">
+                        <h3>🛠️ 자동 생성된 CSS</h3>
+                        <div class="auto-css-wrapper">
+                            <pre class="auto-generated-css"
+                                id="autoGeneratedCSS"><!-- CSS will be inserted here --></pre>
+                            <div class="css-actions">
+                                <button class="copy-btn" id="copyAutoCSS">
+                                    <span>📋</span> CSS 복사
+                                </button>
+                                <button class="download-btn" id="downloadCSS">
+                                    <span>💾</span> CSS 다운로드
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auto Preview Card -->
+                    <div class="rec-card preview-card full-width">
+                        <h3>👁️ 디자인 미리보기</h3>
+                        <div class="auto-preview-controls">
+                            <button class="device-btn active" data-device="desktop">🖥️ 데스크톱</button>
+                            <button class="device-btn" data-device="tablet">📱 태블릿</button>
+                            <button class="device-btn" data-device="mobile">📲 모바일</button>
+                        </div>
+                        <div class="auto-preview-wrapper">
+                            <div class="auto-preview-frame desktop" id="autoPreviewFrame">
+                                <div class="auto-preview-content" id="autoPreviewContent">
+                                    <!-- Preview will be rendered here -->
+                                </div>
+                            </div>
+                        </div>
+                        <button class="open-fullscreen-btn" id="openAutoPreview">
+                            <span>🔗</span> 새 창에서 열기
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tabs Navigation -->
+            <section class="tabs-section">
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-tab="palettes">🎨 색상 팔레트</button>
+                    <button class="tab-btn" data-tab="pro-palettes">🏆 Pro 팔레트</button>
+                    <button class="tab-btn" data-tab="styles">🖼️ UI 스타일</button>
+                    <button class="tab-btn" data-tab="pro-styles">⚡ Pro 스타일</button>
+                    <button class="tab-btn" data-tab="fonts">✒️ 폰트 조합</button>
+                    <button class="tab-btn" data-tab="generator">🛠️ CSS 생성기</button>
+                    <button class="tab-btn" data-tab="preview">👁️ 미리보기</button>
+                </div>
+            </section>
+
+            <!-- Tab Content: Color Palettes -->
+            <section class="tab-content active" id="palettes-content">
+                <div class="section-header">
+                    <h2>🎨 색상 팔레트 갤러리</h2>
+                    <p>마음에 드는 팔레트를 클릭해서 색상 코드를 복사하세요</p>
+                </div>
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-filter="all">전체</button>
+                    <button class="filter-btn" data-filter="warm">🔥 따뜻한</button>
+                    <button class="filter-btn" data-filter="cool">❄️ 차가운</button>
+                    <button class="filter-btn" data-filter="nature">🌿 자연</button>
+                    <button class="filter-btn" data-filter="modern">✨ 모던</button>
+                    <button class="filter-btn" data-filter="pastel">🍬 파스텔</button>
+                    <button class="filter-btn" data-filter="dark">🌙 다크</button>
+                </div>
+                <div class="palettes-grid" id="palettesGrid">
+                    <!-- Palettes will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Tab Content: Pro Palettes (Skill Data) -->
+            <section class="tab-content" id="pro-palettes-content">
+                <div class="section-header">
+                    <h2>🏆 Pro 팔레트 (산업별)</h2>
+                    <p>UI/UX Pro Max 스킬의 96개 산업별 전문 색상 팔레트</p>
+                </div>
+                <div class="palettes-grid" id="proPalettesGrid">
+                    <!-- Pro Palettes will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Tab Content: UI Styles -->
+            <section class="tab-content" id="styles-content">
+                <div class="section-header">
+                    <h2>🖼️ UI 스타일 갤러리</h2>
+                    <p>트렌디한 UI 스타일을 탐색하고 영감을 얻으세요</p>
+                </div>
+                <div class="styles-grid" id="stylesGrid">
+                    <!-- Styles will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Tab Content: Pro Styles (Skill Data) -->
+            <section class="tab-content" id="pro-styles-content">
+                <div class="section-header">
+                    <h2>⚡ Pro 스타일 (전문가용)</h2>
+                    <p>AI 프롬프트와 CSS 키워드가 포함된 67개 전문 UI 스타일</p>
+                </div>
+                <div class="styles-grid" id="proStylesGrid">
+                    <!-- Pro Styles will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Tab Content: Fonts -->
+            <section class="tab-content" id="fonts-content">
+                <div class="section-header">
+                    <h2>✒️ 폰트 조합 갤러리</h2>
+                    <p>제목과 본문에 어울리는 폰트 조합을 찾아보세요</p>
+                </div>
+                <div class="fonts-grid" id="fontsGrid">
+                    <!-- Fonts will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Tab Content: CSS Generator -->
+            <section class="tab-content" id="generator-content">
+                <div class="section-header">
+                    <h2>🛠️ CSS 코드 생성기</h2>
+                    <p>원하는 디자인 요소를 선택하면 완성된 CSS 코드를 생성해 드려요</p>
+                </div>
+
+                <div class="generator-container">
+                    <div class="generator-options">
+                        <!-- Palette Selection -->
+                        <div class="option-group">
+                            <h3>🎨 색상 팔레트 선택</h3>
+                            <select id="selectPalette" class="option-select">
+                                <option value="">팔레트를 선택하세요</option>
+                            </select>
+                            <div class="selected-palette" id="selectedPalettePreview"></div>
+                        </div>
+
+                        <!-- Font Selection -->
+                        <div class="option-group">
+                            <h3>✒️ 폰트 조합 선택</h3>
+                            <select id="selectFont" class="option-select">
+                                <option value="">폰트를 선택하세요</option>
+                            </select>
+                            <div class="selected-font" id="selectedFontPreview"></div>
+                        </div>
+
+                        <!-- Style Selection -->
+                        <div class="option-group">
+                            <h3>🖼️ UI 스타일 선택</h3>
+                            <select id="selectStyle" class="option-select">
+                                <option value="">스타일을 선택하세요</option>
+                            </select>
+                        </div>
+
+                        <!-- Additional Options -->
+                        <div class="option-group">
+                            <h3>⚙️ 추가 옵션</h3>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeDarkMode" checked>
+                                다크 모드 포함
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeAnimations" checked>
+                                애니메이션 포함
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeResponsive" checked>
+                                반응형 스타일 포함
+                            </label>
+                        </div>
+
+                        <button class="generate-btn" id="generateCSSBtn">
+                            ✨ CSS 코드 생성하기
+                        </button>
+                    </div>
+
+                    <div class="generator-output">
+                        <div class="output-header">
+                            <h3>📄 생성된 CSS 코드</h3>
+                            <button class="copy-code-btn" id="copyCSSBtn">
+                                📋 전체 복사
+                            </button>
+                        </div>
+                        <pre
+                            class="code-output"><code id="generatedCSS">/* 왼쪽에서 옵션을 선택하고 "CSS 코드 생성하기" 버튼을 클릭하세요 */</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Content: Live Preview -->
+            <section class="tab-content" id="preview-content">
+                <div class="section-header">
+                    <h2>👁️ 실시간 미리보기</h2>
+                    <p>선택한 디자인이 적용된 샘플 웹페이지를 확인하세요</p>
+                </div>
+
+                <div class="preview-controls">
+                    <div class="device-selector">
+                        <button class="device-btn active" data-device="desktop" title="데스크톱">
+                            🖥️ 데스크톱
+                        </button>
+                        <button class="device-btn" data-device="tablet" title="태블릿">
+                            📱 태블릿
+                        </button>
+                        <button class="device-btn" data-device="mobile" title="모바일">
+                            📲 모바일
+                        </button>
+                    </div>
+                    <div class="template-selector">
+                        <label>템플릿:</label>
+                        <select id="templateSelect">
+                            <option value="landing">랜딩 페이지</option>
+                            <option value="card">카드 컴포넌트</option>
+                            <option value="dashboard">대시보드</option>
+                            <option value="blog">블로그 포스트</option>
+                        </select>
+                    </div>
+                    <button class="open-preview-btn" id="openFullPreview">
+                        🔗 새 창에서 보기
+                    </button>
+                </div>
+
+                <div class="preview-wrapper">
+                    <div class="preview-frame desktop" id="previewFrame">
+                        <div class="preview-content" id="previewContent">
+                            <!-- Preview will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toast Notification -->
+        <div class="toast" id="toast">
+            <span class="toast-icon">✓</span>
+            <span class="toast-message">복사되었습니다!</span>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with ❤️ for students | 웹 디자인을 쉽게!</p>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="skill-data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

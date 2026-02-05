@@ -1,0 +1,12 @@
+# IDE & System files
+.agent/
+.gemini/
+.env
+*.json
+!package.json
+!manifest.json
+
+# Design Helper specific
+node_modules/
+tmp/
+*.log
